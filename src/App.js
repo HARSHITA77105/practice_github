@@ -16,7 +16,7 @@ function App() {
 
       
 
-      <Routing/>
+      {/* <Routing/> */}
 
     </div>
 
