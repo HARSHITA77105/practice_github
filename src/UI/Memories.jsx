@@ -1,15 +1,34 @@
 import React from "react";
-import { Box, Paper, Grid } from "@mui/material";
-
+import { Box, Paper, Grid,Badge,Button } from "@mui/material";
+import {useState,useEffect} from 'react';
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import {  CardActionArea, CardActions } from "@mui/material";
 
 import TextField from "@mui/material/TextField";
 
 export default function Memories() {
+
+
+  const [notifications,setNotifications] = useState(0)
+  const [memories,setMemories] = useState([]);
+
+
+  const handleCreateMemory =()=>{
+    setNotifications(notifications + 1)
+  }
+
+
+const  handleNotificationClick =()=>{
+  setNotifications(0)
+}
+
+
+
+
+
   return (
     <Box sx={{ p: 1, m: 3 }}>
       <Grid container>
@@ -22,6 +41,20 @@ export default function Memories() {
               >
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <h1 style={{}}>MEMORIES</h1>
+
+
+
+                  <Badge  badgeContent={notifications}
+                    color="secondary"
+                    onClick={handleNotificationClick}
+                    sx={{ cursor: "pointer" }}>
+
+                      Notifications
+                    </Badge>
+
+
+
+                  
 
                   <Button
                     sx={{
@@ -390,6 +423,7 @@ export default function Memories() {
 
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Button
+                  onClick={handleCreateMemory}
                     sx={{
                       width: "30%",
                       p: 1,
