@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Paper, Grid } from "@mui/material";
-import {useState,useEffect} from 'react';
+
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,27 +10,6 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import TextField from "@mui/material/TextField";
 
 export default function Memories() {
-
-const [memoryCards,setMemoryCards] = useState([]);
-
-
-const handleFormSubmit = (event) => {
-  event.preventDefault();
-
- 
-  const formData = new FormData(event.target);
-  const newCardData = {
-    title: formData.get("title"),
-    message: formData.get("message"),
-    tags: formData.get("tags"),
-    image: event.target.image.files[0]?.name || "", // Use optional chaining to prevent errors if image.files[0] is undefined
-  };
-
-  setMemoryCards([...memoryCards, newCardData]);
-  event.target.reset();
-};
-
-
   return (
     <Box sx={{ p: 1, m: 3 }}>
       <Grid container>
@@ -76,33 +55,7 @@ const handleFormSubmit = (event) => {
           }}
         >
           <Grid container sx={{ backgroundColor: "" }}>
-          {memoryCards.map((card, index) => (
-          <Grid item xs={3} key={index}>
-            <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
-              {/* Render card content using the data from memoryCards */}
-              {/* Modify this section based on your card structure */}
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {card.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {card.message}
-                </Typography>
-              </CardContent>
-              {/* Add more card content here */}
-              {/* ... */}
-            </Card>
-          </Grid>
-        ))}
-
-
-
-
-
-
-
-
-            {/* <Grid item xs={3}>
+            <Grid item xs={3}>
               <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
                 <CardActionArea>
                   <CardMedia
@@ -128,9 +81,9 @@ const handleFormSubmit = (event) => {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid> */}
+            </Grid>
 
-            {/* <Grid item xs={3}>
+            <Grid item xs={3}>
               <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
                 <CardActionArea>
                   <CardMedia
@@ -156,9 +109,9 @@ const handleFormSubmit = (event) => {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid> */}
+            </Grid>
 
-            {/* <Grid item xs={3}>
+            <Grid item xs={3}>
               <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
                 <CardActionArea>
                   <CardMedia
@@ -184,9 +137,9 @@ const handleFormSubmit = (event) => {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid> */}
+            </Grid>
 
-            {/* <Grid item xs={3}>
+            <Grid item xs={3}>
               <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
                 <CardActionArea>
                   <CardMedia
@@ -212,9 +165,9 @@ const handleFormSubmit = (event) => {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid> */}
+            </Grid>
 
-            {/* <Grid item xs={3}>
+            <Grid item xs={3}>
               <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
                 <CardActionArea>
                   <CardMedia
@@ -240,9 +193,9 @@ const handleFormSubmit = (event) => {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid> */}
+            </Grid>
 
-            {/* <Grid item xs={3}>
+            <Grid item xs={3}>
               <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
                 <CardActionArea>
                   <CardMedia
@@ -268,9 +221,9 @@ const handleFormSubmit = (event) => {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid> */}
+            </Grid>
 
-            {/* <Grid item xs={3}>
+            <Grid item xs={3}>
               <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
                 <CardActionArea>
                   <CardMedia
@@ -296,9 +249,9 @@ const handleFormSubmit = (event) => {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid> */}
+            </Grid>
 
-            {/* <Grid item xs={3}>
+            <Grid item xs={3}>
               <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
                 <CardActionArea>
                   <CardMedia
@@ -324,7 +277,7 @@ const handleFormSubmit = (event) => {
                   </Button>
                 </CardActions>
               </Card>
-            </Grid> */}
+            </Grid>
           </Grid>
         </Grid>
 
@@ -383,8 +336,6 @@ const handleFormSubmit = (event) => {
             <Grid item xs={12} sx={{ placeSelf: "center" }}>
               <Paper elevation={5} sx={{ height: 380, m: 3 }}>
                 <h1 sx={{ textAlign: "center" }}>Creating a Memory</h1>
-
-                <form onSubmit={handleFormSubmit}>
                 <Box
                   component="form"
                   sx={{
@@ -396,12 +347,9 @@ const handleFormSubmit = (event) => {
                 >
                   <TextField
                     sx={{ width: "100%" }}
-                    // id="outlined-basic"
+                    id="outlined-basic"
                     label="Title"
                     variant="outlined"
-                    id="title"
-                    name="title"
-                    
                   />
                 </Box>
 
@@ -416,11 +364,9 @@ const handleFormSubmit = (event) => {
                 >
                   <TextField
                     sx={{ width: "100%", height: "60px" }}
-                    // id="outlined-basic"
+                    id="outlined-basic"
                     label="Message..."
                     variant="outlined"
-                    id="message"
-                    name="message"
                   />
                 </Box>
                 <Box
@@ -434,14 +380,12 @@ const handleFormSubmit = (event) => {
                 >
                   <TextField
                     sx={{ width: "100%", height: "60px" }}
-                    // id="outlined-basic"
+                    id="outlined-basic"
                     label="Tags"
                     variant="outlined"
-                    id="tags"
-                    name="tags"
                   />
                 </Box>
-                <input style={{ marginLeft: 17 }} type="file" id="image" name="image" ></input>
+                <input style={{ marginLeft: 17 }} type="file"></input>
                 {/* <div style={{display:"flex",justifyContent:"",top:10}}> */}
 
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -453,8 +397,6 @@ const handleFormSubmit = (event) => {
                       backgroundColor: "rgb(51, 84, 167)",
                     }}
                     variant="contained"
-                    type="submit"
-                    // onClick={handleFormSubmit}
                   >
                     Submit
                   </Button>
@@ -466,9 +408,6 @@ const handleFormSubmit = (event) => {
                   </Button>
                 </Box>
 
-
-                </form>
-               
                 {/* </div> */}
               </Paper>
             </Grid>
