@@ -10,6 +10,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
     <App bye/>
+    <App hii/>
     </BrowserRouter>
   </React.StrictMode>
 );
