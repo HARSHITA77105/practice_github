@@ -1,35 +1,31 @@
 import React from "react";
-import { Box, Paper, Grid } from "@mui/material";
-import {useState,useEffect} from 'react';
+import { Box, Paper, Grid, Badge, Button } from "@mui/material";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { CardActionArea, CardActions } from "@mui/material";
 
 import TextField from "@mui/material/TextField";
 
 export default function Memories() {
+  const [memoryCards, setMemoryCards] = useState([]);
 
-const [memoryCards,setMemoryCards] = useState([]);
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
 
+    const formData = new FormData(event.target);
+    const newCardData = {
+      title: formData.get("title"),
+      message: formData.get("message"),
+      tags: formData.get("tags"),
+      image: event.target.image.files[0]?.name || "", // Use optional chaining to prevent errors if image.files[0] is undefined
+    };
 
-const handleFormSubmit = (event) => {
-  event.preventDefault();
-
- 
-  const formData = new FormData(event.target);
-  const newCardData = {
-    title: formData.get("title"),
-    message: formData.get("message"),
-    tags: formData.get("tags"),
-    image: event.target.image.files[0]?.name || "", // Use optional chaining to prevent errors if image.files[0] is undefined
+    setMemoryCards([...memoryCards, newCardData]);
+    event.target.reset();
   };
-
-  setMemoryCards([...memoryCards, newCardData]);
-  event.target.reset();
-};
-
 
   return (
     <Box sx={{ p: 1, m: 3 }}>
@@ -37,12 +33,20 @@ const handleFormSubmit = (event) => {
         <Grid item xs={12}>
           <Paper elevation={5} sx={{ height: 85 }}>
             <Grid container>
-              <Grid
-                item
-                
-              >
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <Grid item>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
                   <h1 style={{}}>MEMORIES</h1>
+
+                  <Badge
+                    badgeContent={notifications}
+                    color="secondary"
+                    onClick={handleNotificationClick}
+                    sx={{ cursor: "pointer" }}
+                  >
+                    Notifications
+                  </Badge>
 
                   <Button
                     sx={{
@@ -76,31 +80,24 @@ const handleFormSubmit = (event) => {
           }}
         >
           <Grid container sx={{ backgroundColor: "" }}>
-          {memoryCards.map((card, index) => (
-          <Grid item xs={3} key={index}>
-            <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
-              {/* Render card content using the data from memoryCards */}
-              {/* Modify this section based on your card structure */}
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {card.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {card.message}
-                </Typography>
-              </CardContent>
-              {/* Add more card content here */}
-              {/* ... */}
-            </Card>
-          </Grid>
-        ))}
-
-
-
-
-
-
-
+            {memoryCards.map((card, index) => (
+              <Grid item xs={3} key={index}>
+                <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
+                  {/* Render card content using the data from memoryCards */}
+                  {/* Modify this section based on your card structure */}
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {card.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {card.message}
+                    </Typography>
+                  </CardContent>
+                  {/* Add more card content here */}
+                  {/* ... */}
+                </Card>
+              </Grid>
+            ))}
 
             {/* <Grid item xs={3}>
               <Card elevation={5} sx={{ maxWidth: 300, p: 1, m: 2 }}>
@@ -385,90 +382,100 @@ const handleFormSubmit = (event) => {
                 <h1 sx={{ textAlign: "center" }}>Creating a Memory</h1>
 
                 <form onSubmit={handleFormSubmit}>
-                <Box
-                  component="form"
-                  sx={{
-                    m: 1,
-                    p: 1,
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    sx={{ width: "100%" }}
-                    // id="outlined-basic"
-                    label="Title"
-                    variant="outlined"
-                    id="title"
-                    name="title"
-                    
-                  />
-                </Box>
-
-                <Box
-                  component="form"
-                  sx={{
-                    m: 1,
-                    p: 1,
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    sx={{ width: "100%", height: "60px" }}
-                    // id="outlined-basic"
-                    label="Message..."
-                    variant="outlined"
-                    id="message"
-                    name="message"
-                  />
-                </Box>
-                <Box
-                  component="form"
-                  sx={{
-                    m: 1,
-                    p: 1,
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    sx={{ width: "100%", height: "60px" }}
-                    // id="outlined-basic"
-                    label="Tags"
-                    variant="outlined"
-                    id="tags"
-                    name="tags"
-                  />
-                </Box>
-                <input style={{ marginLeft: 17 }} type="file" id="image" name="image" ></input>
-                {/* <div style={{display:"flex",justifyContent:"",top:10}}> */}
-
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <Button
+                  <Box
+                    component="form"
                     sx={{
-                      width: "30%",
+                      m: 1,
                       p: 1,
-                      m: 2,
-                      backgroundColor: "rgb(51, 84, 167)",
                     }}
-                    variant="contained"
-                    type="submit"
-                    // onClick={handleFormSubmit}
+                    noValidate
+                    autoComplete="off"
                   >
-                    Submit
-                  </Button>
-                  <Button
-                    sx={{ width: "30%", p: 1, m: 2, backgroundColor: "purple" }}
-                    variant="contained"
+                    <TextField
+                      sx={{ width: "100%" }}
+                      // id="outlined-basic"
+                      label="Title"
+                      variant="outlined"
+                      id="title"
+                      name="title"
+                    />
+                  </Box>
+
+                  <Box
+                    component="form"
+                    sx={{
+                      m: 1,
+                      p: 1,
+                    }}
+                    noValidate
+                    autoComplete="off"
                   >
-                    Clear
-                  </Button>
-                </Box>
+                    <TextField
+                      sx={{ width: "100%", height: "60px" }}
+                      // id="outlined-basic"
+                      label="Message..."
+                      variant="outlined"
+                      id="message"
+                      name="message"
+                    />
+                  </Box>
+                  <Box
+                    component="form"
+                    sx={{
+                      m: 1,
+                      p: 1,
+                    }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    <TextField
+                      sx={{ width: "100%", height: "60px" }}
+                      // id="outlined-basic"
+                      label="Tags"
+                      variant="outlined"
+                      id="tags"
+                      name="tags"
+                    />
+                  </Box>
+                  <input
+                    style={{ marginLeft: 17 }}
+                    type="file"
+                    id="image"
+                    name="image"
+                  ></input>
+                  {/* <div style={{display:"flex",justifyContent:"",top:10}}> */}
 
-
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Button
+                      onClick={handleCreateMemory}
+                      sx={{
+                        width: "30%",
+                        p: 1,
+                        m: 2,
+                        backgroundColor: "rgb(51, 84, 167)",
+                      }}
+                      variant="contained"
+                      type="submit"
+                      // onClick={handleFormSubmit}
+                    >
+                      Submit
+                    </Button>
+                    <Button
+                      sx={{
+                        width: "30%",
+                        p: 1,
+                        m: 2,
+                        backgroundColor: "purple",
+                      }}
+                      variant="contained"
+                    >
+                      Clear
+                    </Button>
+                  </Box>
                 </form>
-               
+
                 {/* </div> */}
               </Paper>
             </Grid>
